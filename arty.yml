@@ -1,0 +1,18 @@
+name: "judge.sh"
+version: "1.0.0"
+description: "A bash testing framework for running and asserting test cases"
+author: ""
+license: "MIT"
+
+# Dependencies
+references:
+  # Example: Add bash utility libraries here
+  # - https://github.com/username/bash-colors.git
+
+# Entry point
+main: "judge.sh"
+
+# Scripts
+scripts:
+  test: "bash judge.sh test"
+  example: "bash examples/basic_test.sh"
