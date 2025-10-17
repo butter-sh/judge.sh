@@ -1,26 +1,4 @@
-# Test outputs
-test_results/
-*.test.log
-
-# Dependencies
-.arty/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor files
-*.swp
-*.swo
-*~
-.vscode/
-.idea/
-
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# Coverage reports
-coverage/
-*.coverage
+.git/
+*.log
+snapshots/*.log
+!snapshots/*_master.log

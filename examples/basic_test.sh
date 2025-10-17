@@ -1,106 +1,46 @@
 #!/usr/bin/env bash
 
-# Basic test examples for judge.sh
+# Example test suite
+# Demonstrates basic testing features
 
-# Get the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../test-helpers.sh"
 
-# Source judge.sh from parent directory
-source "$SCRIPT_DIR/../judge.sh"
+log_section "Example Test Suite"
 
-# Test Suite 1: Basic Assertions
-describe "Basic Assertions"
+# Setup
+setup_test_env
 
-it "should compare equal values" "
-    assert_equals 'hello' 'hello'
-"
+# Test 1: Basic assertion
+log_test "Basic string equality"
+assert_equals "hello" "hello" "Should compare equal strings"
 
-it "should compare numbers" "
-    result=\$((5 + 5))
-    assert_equals '10' \"\$result\"
-"
+# Test 2: Exit code check
+log_test "Command exit code"
+true
+assert_exit_code 0 $? "Command should succeed"
 
-it "should check true values" "
-    assert_true '1'
-    assert_true 'true'
-    assert_true 'yes'
-"
+# Test 3: File existence (will fail if file doesn't exist, showing how failures look)
+log_test "File existence check"
+echo "test content" > "${TEMP_DIR}/test-file.txt"
+assert_file_exists "${TEMP_DIR}/test-file.txt" "Test file should exist"
 
-it "should check false values" "
-    assert_false '0'
-    assert_false ''
-"
+# Test 4: String contains
+log_test "String contains check"
+output="The quick brown fox"
+assert_contains "$output" "quick" "Output should contain 'quick'"
 
-# Test Suite 2: String Operations
-describe "String Operations"
+# Test 5: Directory existence
+log_test "Directory existence check"
+mkdir -p "${TEMP_DIR}/test-dir"
+assert_directory_exists "${TEMP_DIR}/test-dir" "Test directory should exist"
 
-it "should check if string contains substring" "
-    text='The quick brown fox'
-    assert_contains \"\$text\" 'quick'
-    assert_contains \"\$text\" 'fox'
-"
+# Test 6: Command success
+log_test "Command success check"
+assert_true "[ 1 -eq 1 ]" "Math comparison should succeed"
 
-it "should check empty strings" "
-    empty=''
-    assert_empty \"\$empty\"
-"
+# Cleanup
+cleanup_test_env
 
-it "should check non-empty strings" "
-    text='hello'
-    assert_not_empty \"\$text\"
-"
-
-# Test Suite 3: Math Operations
-describe "Math Operations"
-
-it "should add numbers correctly" "
-    result=\$((2 + 3))
-    assert_equals '5' \"\$result\"
-"
-
-it "should multiply numbers correctly" "
-    result=\$((4 * 5))
-    assert_equals '20' \"\$result\"
-"
-
-it "should handle division" "
-    result=\$((10 / 2))
-    assert_equals '5' \"\$result\"
-"
-
-# Test Suite 4: Command Execution
-describe "Command Execution"
-
-it "should succeed with valid commands" "
-    assert_success 'echo hello'
-    assert_success 'true'
-"
-
-it "should fail with invalid commands" "
-    assert_failure 'false'
-"
-
-# Test Suite 5: File System
-describe "File System"
-
-it "should check if common files exist" "
-    assert_file_exists '/etc/hosts'
-"
-
-it "should check if common directories exist" "
-    assert_dir_exists '/tmp'
-    assert_dir_exists '/etc'
-"
-
-# Example of a skipped test
-xit "should be implemented later" "
-    # This test is skipped
-    assert_true '1'
-"
-
-# Print summary if run directly
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    echo
-    print_summary
-    exit $?
-fi
+# Print summary
+print_test_summary

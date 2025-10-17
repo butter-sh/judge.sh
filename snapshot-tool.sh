@@ -15,7 +15,7 @@ NC='\033[0m'
 
 show_help() {
     cat << EOF
-Snapshot Management Utility
+Snapshot Management Utility for judge.sh
 
 Usage: $0 <command> [options]
 
@@ -26,15 +26,10 @@ Commands:
     clean [days]        Remove old snapshots (default: 7 days)
     stats               Show snapshot statistics
 
-Test IDs:
-    config-generate     Config generation tests
-    config-validate     Config validation tests
-    stack-list          Stack listing tests
-
 Examples:
     $0 list                      # List all snapshots
-    $0 show stack-list           # Show latest stack-list snapshot
-    $0 diff config-generate      # Compare latest with master
+    $0 show my-test              # Show latest my-test snapshot
+    $0 diff my-test              # Compare latest with master
     $0 clean                     # Remove snapshots older than 7 days
     $0 clean 14                  # Remove snapshots older than 14 days
     $0 stats                     # Show statistics
@@ -129,7 +124,7 @@ clean_snapshots() {
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     
-    local count=$(find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days | wc -l)
+    local count=$(find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days 2>/dev/null | wc -l)
     
     if [ $count -eq 0 ]; then
         echo "No old snapshots to remove"
@@ -165,22 +160,14 @@ show_stats() {
     echo "Total size:       $total_size"
     echo ""
     
-    echo "By Test Suite:"
-    for test_id in config-generate config-validate stack-list; do
-        local count=$(ls "${SNAPSHOT_DIR}/${test_id}"_*.log 2>/dev/null | wc -l)
-        local size=$(du -sh "${SNAPSHOT_DIR}/${test_id}"_*.log 2>/dev/null | tail -1 | awk '{print $1}')
-        if [ $count -gt 0 ]; then
-            printf "  %-20s %3d files (%s)\n" "$test_id:" "$count" "${size:-0}"
-        fi
-    done
-    echo ""
-    
-    echo "Oldest snapshot:"
-    ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | tail -1 | awk '{print "  " $9, "(" $6, $7, $8 ")"}'
-    echo ""
-    
-    echo "Newest snapshot:"
-    ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | head -1 | awk '{print "  " $9, "(" $6, $7, $8 ")"}'
+    if [ $run_count -gt 0 ]; then
+        echo "Oldest snapshot:"
+        ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | tail -1 | awk '{print "  " $9, "(" $6, $7, $8 ")"}'
+        echo ""
+        
+        echo "Newest snapshot:"
+        ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | head -1 | awk '{print "  " $9, "(" $6, $7, $8 ")"}'
+    fi
 }
 
 # Main command dispatcher

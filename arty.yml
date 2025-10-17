@@ -14,5 +14,6 @@ main: "judge.sh"
 
 # Scripts
 scripts:
-  test: "bash judge.sh test"
-  example: "bash examples/basic_test.sh"
+  run: "bash judge.sh run"
+  setup: "bash judge.sh setup"
+  snap: "bash judge.sh snap"

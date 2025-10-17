@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Kompose Test Suite Runner with Snapshot Support
+# Test Runner with Snapshot Support
 # Runs all test suites, captures output, and manages snapshots
 
 set -e
@@ -12,8 +12,8 @@ source "${SCRIPT_DIR}/test-helpers.sh"
 # CONFIGURATION
 # ============================================================================
 
-KOMPOSE_ROOT="${SCRIPT_DIR}/.."
-SNAPSHOT_DIR="${SCRIPT_DIR}/snapshots"
+PROJECT_ROOT="${PWD}/__tests"
+SNAPSHOT_DIR="${PROJECT_ROOT}/snapshots"
 SNAPSHOT_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
 # Create snapshot directory if it doesn't exist
@@ -48,32 +48,27 @@ while [[ $# -gt 0 ]]; do
             ;;
         -h|--help)
             cat << EOF
-Kompose Test Suite Runner
+judge.sh Test Suite Runner
 
 Usage: $0 [OPTIONS]
 
 Options:
     -u, --update-snapshots   Update all test snapshots
-    -i, --integration        Run integration tests (requires Docker)
+    -i, --integration        Run integration tests
     -v, --verbose           Enable verbose output
     -t, --test TEST         Run specific test suite
     -h, --help             Show this help message
-
-Test Suites:
-    config-generate       Test kompose config generate command
-    config-validate       Test kompose config validate command
-    stack-list           Test kompose stack list command
 
 Examples:
     $0                              Run all tests
     $0 -u                           Update all snapshots
     $0 -i                           Run integration tests
     $0 -v                           Verbose output
-    $0 -t config-generate           Run only config-generate tests
-    $0 -u -t stack-list             Update snapshots for stack-list tests
+    $0 -t my-test                   Run only my-test suite
+    $0 -u -t my-test                Update snapshots for my-test
 
 Snapshots:
-    Test output is captured and saved to: __tests/snapshots/
+    Test output is captured and saved to: snapshots/
     Each test run creates a timestamped snapshot for comparison.
     Use -u flag to update the master snapshots.
 
@@ -122,7 +117,7 @@ compare_snapshot() {
         return 0
     fi
     
-    # Compare with master (simple approach - could be enhanced)
+    # Compare with master
     local temp_file=$(mktemp)
     echo "$output" > "$temp_file"
     
@@ -146,7 +141,7 @@ clear
 cat << "EOF"
 ╔════════════════════════════════════════════════════════════════╗
 ║                                                                ║
-║              KOMPOSE TEST SUITE                                ║
+║              judge.sh TEST SUITE                       ║
 ║              Version 1.0.0                                     ║
 ║                                                                ║
 ╚════════════════════════════════════════════════════════════════╝
@@ -159,24 +154,9 @@ EOF
 
 log_section "PRE-FLIGHT CHECKS"
 
-if [ ! -f "${KOMPOSE_ROOT}/kompose.sh" ]; then
-    log_error "kompose.sh not found at ${KOMPOSE_ROOT}/kompose.sh"
-    exit 1
-fi
-log_pass "kompose.sh found"
-
-if is_docker_available; then
-    log_pass "Docker is available"
-    DOCKER_VERSION=$(docker --version)
-    log_info "Docker version: $DOCKER_VERSION"
-else
-    log_warning "Docker not available - integration tests will be skipped"
-fi
-
+# Check for test files
 TEST_FILES=(
-    "test-config-generate.sh"
-    "test-config-validate.sh"
-    "test-stack-list.sh"
+    "test-example.sh"
 )
 
 for test_file in "${TEST_FILES[@]}"; do
@@ -235,7 +215,6 @@ run_test_suite() {
 
     # Capture all output
     local output_file=$(mktemp)
-    local error_file=$(mktemp)
     
     set +e
     {
@@ -255,13 +234,13 @@ run_test_suite() {
         compare_snapshot "$test_id" "$captured_output"
     fi
     
-    # Cleanup temp files
-    rm "$output_file" "$error_file"
+    # Cleanup temp file
+    rm "$output_file"
     
     if [ $exit_code -eq 0 ]; then
-        log_success "[✓] ✓ ${test_name} completed successfully"
+        log_success "✓ ${test_name} completed successfully"
     else
-        log_error "[✗] ✗ ${test_name} failed"
+        log_error "✗ ${test_name} failed"
         FAILED_SUITES+=("$test_name")
     fi
 
@@ -270,26 +249,10 @@ run_test_suite() {
 
 # Run specific test or all tests
 if [ -n "$SPECIFIC_TEST" ]; then
-    case "$SPECIFIC_TEST" in
-        config-generate)
-            run_test_suite "test-config-generate.sh" "Command Config Generate" "config-generate"
-            ;;
-        config-validate)
-            run_test_suite "test-config-validate.sh" "Command Config Validate" "config-validate"
-            ;;
-        stack-list)
-            run_test_suite "test-stack-list.sh" "Command Stack List" "stack-list"
-            ;;
-        *)
-            log_error "Unknown test: $SPECIFIC_TEST"
-            exit 1
-            ;;
-    esac
+    run_test_suite "test-${SPECIFIC_TEST}.sh" "${SPECIFIC_TEST}" "${SPECIFIC_TEST}"
 else
-    # Run all tests
-    run_test_suite "test-config-generate.sh" "Command Config Generate" "config-generate"
-    run_test_suite "test-config-validate.sh" "Command Config Validate" "config-validate"
-    run_test_suite "test-stack-list.sh" "Command Stack List" "stack-list"
+    # Add your test suites here
+    run_test_suite "test-example.sh" "Example Tests" "example"
 fi
 
 # ============================================================================

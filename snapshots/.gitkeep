@@ -1,0 +1,25 @@
+# Snapshots Directory
+
+This directory stores test output snapshots for comparison.
+
+## Structure
+
+- `*_master.log` - Master/reference snapshots (commit these to git)
+- `*_YYYYMMDD_HHMMSS.log` - Timestamped test run snapshots (temporary, not committed)
+
+## Usage
+
+Initialize master snapshots:
+```bash
+../judge.sh setup
+```
+
+Compare tests against master snapshots:
+```bash
+../judge.sh run
+```
+
+Update master snapshots:
+```bash
+../judge.sh run -u
+```

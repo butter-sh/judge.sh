@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Test Helpers for Kompose Test Suite
+# Test Helpers for judge.sh
 # Provides utilities for snapshot testing, assertions, and test reporting
 
 # Colors for output
@@ -18,7 +18,7 @@ TESTS_FAILED=0
 
 # Directories
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-KOMPOSE_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+PROJECT_ROOT="${SCRIPT_DIR}"
 SNAPSHOT_DIR="${SCRIPT_DIR}/snapshots"
 TEMP_DIR="${SCRIPT_DIR}/temp"
 
@@ -302,33 +302,6 @@ compare_snapshot() {
 # COMMAND EXECUTION
 # ============================================================================
 
-run_kompose() {
-    local output
-    local exit_code
-
-    # Run command and capture output
-    cd "${KOMPOSE_ROOT}" || exit 1
-
-    # Ensure STACKS_ROOT is set to KOMPOSE_ROOT for tests
-    export STACKS_ROOT="${KOMPOSE_ROOT}"
-
-    set +e
-    output=$(bash kompose.sh "$@" 2>&1)
-    exit_code=$?
-    set -e
-
-    # Return output
-    echo "$output"
-    return $exit_code
-}
-
-run_kompose_quiet() {
-    cd "${KOMPOSE_ROOT}" || exit 1
-    export STACKS_ROOT="${KOMPOSE_ROOT}"
-    bash kompose.sh "$@" >/dev/null 2>&1
-    return $?
-}
-
 capture_output() {
     local cmd="$*"
     local output
@@ -359,36 +332,8 @@ setup_test_env() {
     rm -rf "${TEMP_DIR}"
     mkdir -p "${TEMP_DIR}"
 
-    # Create test sandbox structure
-    mkdir -p "${TEMP_DIR}/+custom"
-    mkdir -p "${TEMP_DIR}/_docs/content/5.stacks/+custom"
-    mkdir -p "${TEMP_DIR}/__tests/generated"
-    mkdir -p "${TEMP_DIR}/backups"
-
-    # Create minimal .env file in temp directory
-    log_info "Creating test .env file..."
-    cat > "${TEMP_DIR}/.env" << 'EOF'
-# Test environment configuration
-TIMEZONE=Europe/Amsterdam
-NETWORK_NAME=kompose
-NODE_ENV=test
-ENVIRONMENT=test
-EOF
-
-    # Also create in kompose root if needed for non-isolated tests
-    if [ ! -f "${KOMPOSE_ROOT}/.env" ]; then
-        cp "${TEMP_DIR}/.env" "${KOMPOSE_ROOT}/.env"
-    fi
-
-    # Export environment variables to redirect artifact outputs to temp directory
-    export TEST_ARTIFACT_DIR="${TEMP_DIR}"
-    export ENV_VARS_JSON_OUTPUT="${TEMP_DIR}/env-vars.json"
-    export SECRETS_JSON_OUTPUT="${TEMP_DIR}/secrets.json"
-    export CONFIG_JSON_OUTPUT="${TEMP_DIR}/config.json"
-
     log_info "Test environment ready"
-    log_info "Test sandbox: ${TEMP_DIR}"
-    log_info "Artifacts will be created in: ${TEMP_DIR}"
+    log_info "Test temp directory: ${TEMP_DIR}"
 }
 
 cleanup_test_env() {
@@ -399,28 +344,6 @@ cleanup_test_env() {
         rm -rf "${TEMP_DIR}"
         log_info "Removed temp directory: ${TEMP_DIR}"
     fi
-
-    # Clean up any artifacts that may have been created in the root directory during tests
-    # This is a safety measure in case some tests don't respect TEST_ARTIFACT_DIR
-    for artifact in "${KOMPOSE_ROOT}/config.json" "${KOMPOSE_ROOT}/env-vars.json" "${KOMPOSE_ROOT}/secrets.json"; do
-        if [ -f "$artifact" ] && [ -n "${TEST_ARTIFACT_DIR}" ]; then
-            # Only remove if we're in a test context (TEST_ARTIFACT_DIR is set)
-            # and if the file was likely created during this test (very recent)
-            if [ $(find "$artifact" -mmin -5 2>/dev/null | wc -l) -gt 0 ]; then
-                rm -f "$artifact"
-                log_info "Removed test artifact: $artifact"
-            fi
-        fi
-    done
-
-    # Unset test environment variables
-    unset TEST_ARTIFACT_DIR
-    unset ENV_VARS_JSON_OUTPUT
-    unset SECRETS_JSON_OUTPUT
-    unset CONFIG_JSON_OUTPUT
-
-    # Don't remove .env from KOMPOSE_ROOT as it might be needed for other tests
-    # Individual test suites should handle their own specific cleanup
 
     log_info "Cleanup complete"
 }
@@ -457,58 +380,11 @@ print_test_summary() {
     fi
 }
 
-# ============================================================================
-# DOCKER HELPERS
-# ============================================================================
-
-wait_for_container() {
-    local container="$1"
-    local timeout="${2:-30}"
-    local elapsed=0
-
-    while [ $elapsed -lt $timeout ]; do
-        if docker ps --filter "name=$container" --filter "status=running" | grep -q "$container"; then
-            return 0
-        fi
-        sleep 1
-        elapsed=$((elapsed+1))
-    done
-
-    return 1
-}
-
-is_docker_available() {
-    if command -v docker &> /dev/null && docker ps &> /dev/null 2>&1; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-container_is_healthy() {
-    local container="$1"
-    local health_status
-
-    health_status=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null || echo "none")
-
-    if [ "$health_status" = "healthy" ]; then
-        return 0
-    elif [ "$health_status" = "none" ]; then
-        # No health check defined, check if running
-        if docker ps --filter "name=$container" --filter "status=running" | grep -q "$container"; then
-            return 0
-        fi
-    fi
-
-    return 1
-}
-
 # Export functions for use in test scripts
 export -f log_test log_pass log_fail log_skip log_info log_warning log_error log_success log_section
 export -f assert_equals assert_contains assert_not_contains assert_exit_code
 export -f assert_file_exists assert_directory_exists
 export -f assert_true assert_false
 export -f normalize_output create_snapshot update_snapshot compare_snapshot
-export -f run_kompose run_kompose_quiet capture_output
+export -f capture_output
 export -f setup_test_env cleanup_test_env print_test_summary
-export -f wait_for_container is_docker_available container_is_healthy
