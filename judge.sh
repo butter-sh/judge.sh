@@ -73,6 +73,7 @@ main() {
 
 		# Export tests dir
 		export TESTS_DIR=$TESTS_DIR
+		export TEST_ROOT=$TESTS_DIR
 
 		# Load test config
 		source "${REAL_SCRIPT_DIR}/test-config.sh"
