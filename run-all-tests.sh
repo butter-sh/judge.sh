@@ -154,9 +154,6 @@ EOF
 
 log_section "PRE-FLIGHT CHECKS"
 
-# Check for test files
-TEST_FILES=(${TESTS_DIR}/tests-*.sh)
-
 
 for test_file in "${TEST_FILES[@]}"; do
     if [ -f "${SCRIPT_DIR}/${test_file}" ]; then

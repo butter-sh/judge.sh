@@ -6,6 +6,9 @@
 export SNAPSHOTS_DIR="${TESTS_DIR}/snapshots"
 export TEMP_DIR="${TESTS_DIR}/temp"
 
+# Check for test files
+export TEST_FILES=(${TESTS_DIR}/tests-*.sh)
+
 # Snapshot configuration
 export SNAPSHOT_UPDATE="${UPDATE_SNAPSHOTS:-0}"
 export SNAPSHOT_VERBOSE="${VERBOSE:-0}"
