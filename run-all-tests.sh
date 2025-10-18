@@ -8,6 +8,15 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/test-helpers.sh"
 
+# Export tests dir
+export TESTS_DIR="$PWD/__tests"
+
+# Load test config
+source "${SCRIPT_DIR}/test-config.sh"
+if [ -f "${TESTS_DIR}/test-config.sh" ]; then
+	source "${TESTS_DIR}/test-config.sh"
+fi
+
 # ============================================================================
 # CONFIGURATION
 # ============================================================================

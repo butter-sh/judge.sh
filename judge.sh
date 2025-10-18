@@ -8,7 +8,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REAL_BASH_SOURCE="$(readlink -f "${BASH_SOURCE[0]}")"
 REAL_SCRIPT_DIR="$(cd "$(dirname "${REAL_BASH_SOURCE}")" && pwd)"
-TESTS_DIR="${PWD}/__tests"
 
 # Colors for output
 RED='\033[0;31m'
@@ -70,16 +69,6 @@ main() {
 
     local command="$1"
     shift
-
-		# Export tests dir
-		export TESTS_DIR="$TESTS_DIR"
-		export TEST_ROOT="$TESTS_DIR"
-
-		# Load test config
-		source "${REAL_SCRIPT_DIR}/test-config.sh"
-		if [ -f "${TESTS_DIR}/test-config.sh" ]; then
-			source "${TESTS_DIR}/test-config.sh"
-		fi
     
 
     case "$command" in
