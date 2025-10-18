@@ -10,6 +10,7 @@ REAL_BASH_SOURCE="$(readlink -f "${BASH_SOURCE[0]}")"
 REAL_SCRIPT_DIR="$(cd "$(dirname "${REAL_BASH_SOURCE}")" && pwd)"
 
 # Colors for output - only use colors if output is to a terminal or if FORCE_COLOR is set
+export FORCE_COLOR=${FORCE_COLOR:-}
 if [[ -z "$FORCE_COLOR" ]]; then
 		if [[ "$FORCE_COLOR" = "1" ]]; then
 			export RED='\033[0;31m'
