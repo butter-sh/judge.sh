@@ -29,7 +29,7 @@ SNAPSHOT_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 # Create snapshot directory if it doesn't exist
 mkdir -p "${SNAPSHOT_DIR}"
 if [ ! -f "${SNAPSHOT_DIR}/.gitignore" ]; then
-  echo '*' >> ${SNAPSHOT_DIR}/.gitignore
+  echo '*.log' >> ${SNAPSHOT_DIR}/.gitignore
   echo '!*_master.log' >> ${SNAPSHOT_DIR}/.gitignore
 fi
 
