@@ -8,7 +8,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REAL_BASH_SOURCE="$(readlink -f "${BASH_SOURCE[0]}")"
 REAL_SCRIPT_DIR="$(cd "$(dirname "${REAL_BASH_SOURCE}")" && pwd)"
-TESTS_DIR="${REAL_SCRIPT_DIR}/../../__tests"
+TESTS_DIR="${PWD}/__tests"
 
 # Colors for output
 RED='\033[0;31m'
