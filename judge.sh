@@ -6,6 +6,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REAL_BASH_SOURCE="$(readlink -f "${BASH_SOURCE[0]}")"
+REAL_SCRIPT_DIR="$(cd "$(dirname "${REAL_BASH_SOURCE}")" && pwd)"
 
 # Colors for output
 RED='\033[0;31m'
@@ -71,15 +73,15 @@ main() {
     case "$command" in
         run)
             # Delegate to run-all-tests.sh
-            exec bash "${SCRIPT_DIR}/run-all-tests.sh" "$@"
+            exec bash "${REAL_SCRIPT_DIR}/run-all-tests.sh" "$@"
             ;;
         setup)
             # Delegate to setup-snapshots.sh
-            exec bash "${SCRIPT_DIR}/setup-snapshots.sh" "$@"
+            exec bash "${REAL_SCRIPT_DIR}/setup-snapshots.sh" "$@"
             ;;
         snap)
             # Delegate to snapshot-tool.sh
-            exec bash "${SCRIPT_DIR}/snapshot-tool.sh" "$@"
+            exec bash "${REAL_SCRIPT_DIR}/snapshot-tool.sh" "$@"
             ;;
         help|--help|-h)
             show_usage
