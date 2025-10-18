@@ -152,7 +152,15 @@ assert_exit_code() {
 
     TESTS_RUN=$((TESTS_RUN+1))
 
-    if [ "$expected_code" -eq "$actual_code" ]; then
+    # Ensure both codes are set, default to empty string representation
+    if [[ -z "$expected_code" ]]; then
+        expected_code="(empty)"
+    fi
+    if [[ -z "$actual_code" ]]; then
+        actual_code="(empty)"
+    fi
+
+    if [[ "$expected_code" -eq "$actual_code" ]] 2>/dev/null; then
         log_pass "$test_name"
         return 0
     else
