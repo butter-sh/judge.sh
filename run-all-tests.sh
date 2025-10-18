@@ -258,8 +258,9 @@ run_test_suite() {
 if [ -n "$SPECIFIC_TEST" ]; then
     run_test_suite "test-${SPECIFIC_TEST}.sh" "${SPECIFIC_TEST}" "${SPECIFIC_TEST}"
 else
-    # Add your test suites here
-    run_test_suite "test-example.sh" "Example Tests" "example"
+		for suite in "${TEST_FILES[@]}"; do
+        run_test_suite "${suite}" "${suite}" "${suite}"
+    done
 fi
 
 # ============================================================================

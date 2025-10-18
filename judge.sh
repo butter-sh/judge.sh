@@ -70,17 +70,6 @@ main() {
     local command="$1"
     shift
 
-		# Export tests dir
-		export TESTS_DIR="$PWD/__tests"
-		export TEST_ROOT="$TESTS_DIR"
-
-		# Load test config
-		source "${REAL_SCRIPT_DIR}/test-config.sh"
-		if [ -f "${TESTS_DIR}/test-config.sh" ]; then
-			source "${TESTS_DIR}/test-config.sh"
-		fi
-    
-
     case "$command" in
         run)
             # Delegate to run-all-tests.sh
