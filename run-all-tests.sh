@@ -7,9 +7,6 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Force colors in test output even when piped - MUST be set before sourcing test-helpers
-export FORCE_COLOR=1
-
 source "${SCRIPT_DIR}/test-helpers.sh"
 
 # Export tests dir
