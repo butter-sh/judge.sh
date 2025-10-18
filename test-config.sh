@@ -4,7 +4,7 @@
 
 # Colors for output - only use colors if output is to a terminal or if FORCE_COLOR is set
 if [[ -z "$FORCE_COLOR" ]]; then
-		if [[ $FORCE_COLOR == 1 ]]; then
+		if [[ "$FORCE_COLOR" == "1" ]]; then
 			  export RED='\033[0;31m'
 				export GREEN='\033[0;32m'
 				export YELLOW='\033[1;33m'
@@ -19,7 +19,7 @@ if [[ -z "$FORCE_COLOR" ]]; then
 			export CYAN=''
 			export NC=''
 		fi
-else if [[ -t 1 ]] && [[ -t 2 ]]; then
+elif [[ -t 1 ]] && [[ -t 2 ]]; then
 		export RED='\033[0;31m'
     export GREEN='\033[0;32m'
     export YELLOW='\033[1;33m'
