@@ -2,12 +2,15 @@
 # Test configuration for test suites
 # This file is sourced by test files to set common configuration
 
+# The nullglob option causes the array to be empty if there are no matches.
+shopt -s nullglob
+
 # Test directory structure
 export SNAPSHOTS_DIR="${TESTS_DIR}/snapshots"
 export TEMP_DIR="${TESTS_DIR}/temp"
 
 # Check for test files
-export TEST_FILES=(${TESTS_DIR}/tests-*.sh)
+export TEST_FILES=($TESTS_DIR/tests-*.sh)
 
 # Snapshot configuration
 export SNAPSHOT_UPDATE="${UPDATE_SNAPSHOTS:-0}"
