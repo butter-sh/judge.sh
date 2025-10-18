@@ -4,7 +4,8 @@
 # View, compare, and manage test snapshots
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SNAPSHOT_DIR="${SCRIPT_DIR}/snapshots"
+# Use environment variable if set, otherwise default to script directory
+SNAPSHOT_DIR="${SNAPSHOT_DIR:-${SCRIPT_DIR}/snapshots}"
 
 # Colors for output - only use colors if output is to a terminal or if FORCE_COLOR is set
 export FORCE_COLOR=${FORCE_COLOR:-}

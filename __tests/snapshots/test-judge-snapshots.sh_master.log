@@ -1,0 +1,20 @@
+Running snapshot functionality tests...
+
+✓ Snapshot file created
+✓ Trailing spaces removed
+✓ Snapshot updated
+✓ Snapshot comparison passes on match
+✓ Snapshot comparison fails on mismatch
+✓ Missing snapshot created
+✓ ANSI codes removed
+✓ Trailing whitespace removed
+✓ Whitespace differences ignored
+✓ ANSI codes ignored in comparison
+✓ Multiple snapshots coexist independently
+✓ Hyphens in snapshot names work
+✓ Multiline content handled
+✓ Empty content handled
+
+═══════════════════════════════════════
+Snapshot Tests: 14/14 passed
+═══════════════════════════════════════

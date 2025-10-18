@@ -1,0 +1,33 @@
+[0;32m[PASS][0m Snapshot dir should exist
+[0;32m[PASS][0m Temp dir should exist
+[0;32m[PASS][0m Snapshot dir should still exist
+[0;32m[PASS][0m Temp dir should still exist
+[0;32m[PASS][0m Old file should be removed
+[0;32m[PASS][0m Temp dir should be recreated
+[0;32m[PASS][0m Temp dir should be removed
+[0;32m[PASS][0m Should handle missing directory gracefully
+[0;32m[PASS][0m Should capture stdout
+[0;32m[PASS][0m Should capture stderr
+[0;32m[PASS][0m Should capture output from successful command
+[0;32m[PASS][0m Should capture output from failed command
+[0;32m[PASS][0m Should contain line1
+[0;32m[PASS][0m Should contain line2
+[0;32m[PASS][0m Should contain line3
+[0;32m[PASS][0m Should handle pipes
+[0;32m[PASS][0m Should clean temp directory
+[0;32m[PASS][0m Should preserve snapshots
+[0;32m[PASS][0m log_info should be exported
+[0;32m[PASS][0m capture_output should be exported
+[0;32m[PASS][0m setup_test_env should be exported
+[0;32m[PASS][0m cleanup_test_env should be exported
+
+[0;36m═══════════════════════════════════════════════════════[0m
+[0;36m  TEST SUMMARY[0m
+[0;36m═══════════════════════════════════════════════════════[0m
+
+  Total Tests:  22
+  [0;32mPassed:       22[0m
+  [0;31mFailed:       0[0m
+  Pass Rate:    100%
+
+[0;32m✓ All tests passed![0m

@@ -1,0 +1,39 @@
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have TEST prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have PASS prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have FAIL prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have SKIP prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have INFO prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have WARN prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should have ERROR prefix
+[0;32m[PASS][0m Should contain message
+[0;32m[PASS][0m Should contain title
+[0;32m[PASS][0m Should have separator
+[0;32m[PASS][0m Should handle empty strings
+[0;32m[PASS][0m Should handle special characters
+[0;32m[PASS][0m Summary should show counters
+[0;32m[PASS][0m Should return 0 when all pass
+[0;32m[PASS][0m Should return non-zero when tests fail
+[0;32m[PASS][0m Should handle zero tests
+[0;32m[PASS][0m Should show 80% pass rate
+[0;32m[PASS][0m log_info should be available
+[0;32m[PASS][0m log_pass should be available
+[0;32m[PASS][0m log_fail should be available
+[0;32m[PASS][0m log_section should be available
+
+[0;36m═══════════════════════════════════════════════════════[0m
+[0;36m  TEST SUMMARY[0m
+[0;36m═══════════════════════════════════════════════════════[0m
+
+  Total Tests:  28
+  [0;32mPassed:       28[0m
+  [0;31mFailed:       0[0m
+  Pass Rate:    100%
+
+[0;32m✓ All tests passed![0m

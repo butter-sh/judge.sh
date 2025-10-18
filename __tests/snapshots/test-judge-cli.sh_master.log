@@ -1,0 +1,30 @@
+[0;32m[PASS][0m Should show usage
+[0;32m[PASS][0m Should show commands
+[0;32m[PASS][0m Should show usage
+[0;32m[PASS][0m Should show commands
+[0;32m[PASS][0m Should show usage
+[0;32m[PASS][0m Should show usage
+[0;32m[PASS][0m Unknown command should fail
+[0;32m[PASS][0m Should show error message
+[0;32m[PASS][0m Should show run command
+[0;32m[PASS][0m Should show setup command
+[0;32m[PASS][0m Should show snap command
+[0;32m[PASS][0m Should show examples
+[0;32m[PASS][0m Should describe run command
+[0;32m[PASS][0m Should describe setup command
+[0;32m[PASS][0m Should describe snap command
+[0;32m[PASS][0m Should show run example
+[0;32m[PASS][0m Should show setup example
+[0;32m[PASS][0m Should show snap example
+[0;32m[PASS][0m Should mention detailed help
+
+[0;36m═══════════════════════════════════════════════════════[0m
+[0;36m  TEST SUMMARY[0m
+[0;36m═══════════════════════════════════════════════════════[0m
+
+  Total Tests:  19
+  [0;32mPassed:       19[0m
+  [0;31mFailed:       0[0m
+  Pass Rate:    100%
+
+[0;32m✓ All tests passed![0m

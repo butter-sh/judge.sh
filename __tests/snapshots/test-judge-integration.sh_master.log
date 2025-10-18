@@ -1,0 +1,31 @@
+[0;32m[PASS][0m Test should pass
+[0;32m[PASS][0m File should exist
+[0;32m[PASS][0m File should be cleaned up
+[0;32m[PASS][0m Snapshot should be created
+[0;32m[PASS][0m Should pass with matching content
+[0;32m[PASS][0m Should contain info
+[0;32m[PASS][0m Should contain test
+[0;32m[PASS][0m Should contain success
+[0;32m[PASS][0m File 1 should exist
+[0;32m[PASS][0m File 2 should exist
+[0;32m[PASS][0m Subdir should exist
+[0;32m[PASS][0m Should capture failure
+[0;32m[PASS][0m Should be updated
+[0;32m[PASS][0m Should clean temp
+[0;32m[PASS][0m Equals should work
+[0;32m[PASS][0m Contains should work
+[0;32m[PASS][0m True should work
+[0;32m[PASS][0m False should work
+[0;32m[PASS][0m Should capture command output
+[0;32m[PASS][0m Should produce normalized output
+
+[0;36m═══════════════════════════════════════════════════════[0m
+[0;36m  TEST SUMMARY[0m
+[0;36m═══════════════════════════════════════════════════════[0m
+
+  Total Tests:  20
+  [0;32mPassed:       20[0m
+  [0;31mFailed:       0[0m
+  Pass Rate:    100%
+
+[0;32m✓ All tests passed![0m

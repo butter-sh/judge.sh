@@ -12,6 +12,7 @@ main: "judge.sh"
 
 # Scripts
 scripts:
-  run: "bash judge.sh run"
-  setup: "bash judge.sh setup"
-  snap: "bash judge.sh snap"
+  test: "bash judge.sh run"
+  test/update: "bash judge.sh run -u"
+  test/setup: "bash judge.sh setup"
+  test/verbose: "bash judge.sh run -v"

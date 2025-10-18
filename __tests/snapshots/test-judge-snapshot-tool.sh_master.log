@@ -1,0 +1,35 @@
+[0;32m[PASS][0m Should show usage
+[0;32m[PASS][0m Should show commands
+[0;32m[PASS][0m Should show help header
+[0;32m[PASS][0m Should show master section
+[0;32m[PASS][0m Should show recent section
+[0;32m[PASS][0m Should show directory
+[0;32m[PASS][0m Should fail without test-id
+[0;32m[PASS][0m Should show error
+[0;32m[PASS][0m Should display snapshot content
+[0;32m[PASS][0m Should fail for missing snapshot
+[0;32m[PASS][0m Should show error
+[0;32m[PASS][0m Should fail without test-id
+[0;32m[PASS][0m Should show error
+[0;32m[PASS][0m Should show no differences
+[0;32m[PASS][0m Should detect differences
+[0;32m[PASS][0m Should fail without master
+[0;32m[PASS][0m Should show error
+[0;32m[PASS][0m Should show master count
+[0;32m[PASS][0m Should show run count
+[0;32m[PASS][0m Should show size
+[0;32m[PASS][0m Should show cleanup message
+[0;32m[PASS][0m Should use custom days
+[0;32m[PASS][0m Should fail for unknown command
+[0;32m[PASS][0m Should show error
+
+[0;36m═══════════════════════════════════════════════════════[0m
+[0;36m  TEST SUMMARY[0m
+[0;36m═══════════════════════════════════════════════════════[0m
+
+  Total Tests:  24
+  [0;32mPassed:       24[0m
+  [0;31mFailed:       0[0m
+  Pass Rate:    100%
+
+[0;32m✓ All tests passed![0m

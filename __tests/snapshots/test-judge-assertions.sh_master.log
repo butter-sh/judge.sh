@@ -1,0 +1,23 @@
+Running assertion function tests...
+
+✓ assert_equals increments passed counter
+✓ assert_equals fails correctly
+✓ assert_contains finds substring
+✓ assert_contains fails when substring absent
+✓ assert_not_contains works correctly
+✓ assert_not_contains fails when substring present
+✓ assert_exit_code works correctly
+✓ assert_exit_code fails on mismatch
+✓ assert_file_exists detects file
+✓ assert_file_exists fails for missing file
+✓ assert_directory_exists detects directory
+✓ assert_directory_exists fails for missing directory
+✓ assert_true works correctly
+✓ assert_true fails for false commands
+✓ assert_false works correctly
+✓ assert_false fails for true commands
+✓ Test counter increments correctly
+
+═══════════════════════════════════════
+Assertion Tests: 17/17 passed
+═══════════════════════════════════════
