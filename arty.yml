@@ -1,0 +1,19 @@
+name: "@butter.sh/judge.sh"
+version: "1.0.0"
+description: "A bash testing framework for running and asserting test cases"
+author: "valknar@pivoine.art"
+license: "MIT"
+
+references:
+- https://github.com/butter-sh/leaf.sh.git
+
+main: "judge.sh"
+
+scripts:
+  test: "bash judge.sh run"
+  test/update: "bash judge.sh run -u"
+  test/setup: "bash judge.sh setup"
+  test/verbose: "bash judge.sh run -v"
+  test/ci: "TERM=linux bash judge.sh run"
+  format: "shfmt -l -w ./*.sh ./examples/*.sh ./__tests/*.sh"
+  docs: BASE_PATH=judge.sh arty exec leaf . --logo ./icon.svg -o ./docs
