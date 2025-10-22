@@ -20,7 +20,7 @@ if [[ "$FORCE_COLOR" = "0" ]]; then
   export MAGENTA=''
   export BOLD=''
   export NC=''
-else
+  else
   export RED='\033[0;31m'
   export GREEN='\033[0;32m'
   export YELLOW='\033[1;33m'
@@ -88,27 +88,27 @@ main() {
   case "$command" in
   run)
     # Delegate to run-all-tests.sh
-    exec bash "${REAL_SCRIPT_DIR}/run-all-tests.sh" "$@"
-    ;;
+  exec bash "${REAL_SCRIPT_DIR}/run-all-tests.sh" "$@"
+  ;;
   setup)
     # Delegate to setup-snapshots.sh
-    exec bash "${REAL_SCRIPT_DIR}/setup-snapshots.sh" "$@"
-    ;;
+  exec bash "${REAL_SCRIPT_DIR}/setup-snapshots.sh" "$@"
+  ;;
   snap)
     # Delegate to snapshot-tool.sh
-    exec bash "${REAL_SCRIPT_DIR}/snapshot-tool.sh" "$@"
-    ;;
+  exec bash "${REAL_SCRIPT_DIR}/snapshot-tool.sh" "$@"
+  ;;
   help | --help | -h)
-    show_usage
-    exit 0
-    ;;
+  show_usage
+  exit 0
+  ;;
   *)
-    echo -e "${RED}Error: Unknown command '$command'${NC}"
-    echo ""
-    show_usage
-    exit 1
-    ;;
-  esac
+  echo -e "${RED}Error: Unknown command '$command'${NC}"
+  echo ""
+  show_usage
+  exit 1
+  ;;
+esac
 }
 
 main "$@"

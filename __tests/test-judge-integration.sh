@@ -20,9 +20,9 @@ EOF
 test_logging_sequence() {
 
   output=$(
-    log_info "Starting test"
-    log_test "Running test"
-    log_success "All done"
+  log_info "Starting test"
+  log_test "Running test"
+  log_success "All done"
   ) 2>&1
   assert_contains "$output" "Starting test" "Should contain info"
   assert_contains "$output" "Running test" "Should contain test"
@@ -63,7 +63,7 @@ test_capture_functionality() {
 test_normalize_output() {
 
   input="  test  
-    with spaces  "
+  with spaces  "
   output=$(normalize_output "$input")
   # Just verify it produces some output
   assert_true "[[ -n \"$output\" ]]" "Should produce normalized output"

@@ -35,7 +35,7 @@ create_test_env() {
   local test_dir="$TEST_ENV_DIR"
   if [[ -n "$test_dir" ]] && [[ -d "$test_dir" ]]; then
     echo "$test_dir"
-  else
+    else
     local test_base_dir="${TEMP_DIR}"
     test_dir=$(mktemp -d "${test_base_dir}/judge-test-XXXXXX")
     echo "$test_dir"
@@ -120,7 +120,7 @@ assert_equals() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 1
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Expected: $expected"
@@ -140,7 +140,7 @@ assert_not_equals() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Expected values to be different"
@@ -160,7 +160,7 @@ assert_contains() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Expected to contain: $needle"
@@ -183,7 +183,7 @@ assert_not_contains() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Expected NOT to contain: $needle"
@@ -214,7 +214,7 @@ assert_exit_code() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Expected exit code: $expected_code"
@@ -233,7 +233,7 @@ assert_file_exists() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  File not found: $file"
@@ -251,7 +251,7 @@ assert_directory_exists() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Directory not found: $dir"
@@ -274,7 +274,7 @@ assert_true() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Command failed: $command"
@@ -298,7 +298,7 @@ assert_false() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     TESTS_FAILED=$((TESTS_FAILED + 1))
     log_fail "$test_name"
     echo "  Command should have failed: $command"
@@ -362,13 +362,13 @@ compare_snapshot() {
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
-  else
+    else
     log_fail "$test_name - Snapshot mismatch"
     echo "  Snapshot: $snapshot_file"
     if [ "${VERBOSE:-0}" = "1" ]; then
       echo "  Diff:"
       diff -u <(echo "$normalized_expected") <(echo "$normalized_actual") | head -50 || true
-    else
+      else
       echo "  Use -v flag to see diff"
     fi
     echo "  Run with UPDATE_SNAPSHOTS=1 to update snapshots"
@@ -456,7 +456,7 @@ print_test_summary() {
     echo -e "${GREEN}✓ All tests passed!${NC}"
     echo ""
     return 0
-  else
+    else
     echo -e "${RED}✗ Some tests failed${NC}"
     echo ""
     return 1

@@ -18,7 +18,7 @@ if [[ "$FORCE_COLOR" = "0" ]]; then
   export MAGENTA=''
   export BOLD=''
   export NC=''
-else
+  else
   export RED='\033[0;31m'
   export GREEN='\033[0;32m'
   export YELLOW='\033[1;33m'
@@ -124,7 +124,7 @@ diff_snapshot() {
 
   if diff -q "$master" "$latest" >/dev/null 2>&1; then
     echo -e "${GREEN}✓ No differences - outputs match${NC}"
-  else
+    else
     echo -e "${YELLOW}⚠ Differences found:${NC}"
     echo ""
     diff -u "$master" "$latest" | head -50
@@ -148,18 +148,18 @@ clean_snapshots() {
   fi
 
   echo "Found $count snapshot(s) to remove:"
-  find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days -exec basename {} \; | sed 's/^/  /'
-  echo ""
+find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days -exec basename {} \; | sed 's/^/  /'
+echo ""
 
-  read -p "Remove these files? [y/N] " -n 1 -r
-  echo
+read -p "Remove these files? [y/N] " -n 1 -r
+echo
 
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days -delete
-    echo -e "${GREEN}✓ Removed $count snapshot(s)${NC}"
-  else
-    echo "Cancelled"
-  fi
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days -delete
+echo -e "${GREEN}✓ Removed $count snapshot(s)${NC}"
+else
+echo "Cancelled"
+fi
 }
 
 show_stats() {
@@ -189,27 +189,27 @@ show_stats() {
 # Main command dispatcher
 case "${1:-}" in
 list)
-  list_snapshots
-  ;;
+list_snapshots
+;;
 show)
-  show_snapshot "$2"
-  ;;
+show_snapshot "$2"
+;;
 diff)
-  diff_snapshot "$2"
-  ;;
+diff_snapshot "$2"
+;;
 clean)
-  clean_snapshots "$2"
-  ;;
+clean_snapshots "$2"
+;;
 stats)
-  show_stats
-  ;;
+show_stats
+;;
 -h | --help | help | "")
-  show_help
-  ;;
+show_help
+;;
 *)
-  echo "Unknown command: $1"
-  echo ""
-  show_help
-  exit 1
-  ;;
+echo "Unknown command: $1"
+echo ""
+show_help
+exit 1
+;;
 esac

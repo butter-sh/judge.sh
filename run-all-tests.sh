@@ -69,19 +69,19 @@ SPECIFIC_TEST=""
 while [[ $# -gt 0 ]]; do
   case $1 in
   -u | --update-snapshots)
-    UPDATE_SNAPSHOTS=1
-    export UPDATE_SNAPSHOTS
-    shift
-    ;;
+  UPDATE_SNAPSHOTS=1
+  export UPDATE_SNAPSHOTS
+  shift
+  ;;
   -v | --verbose)
-    VERBOSE=1
-    export VERBOSE
-    shift
-    ;;
+  VERBOSE=1
+  export VERBOSE
+  shift
+  ;;
   -t | --test)
-    SPECIFIC_TEST="$2"
-    shift 2
-    ;;
+  SPECIFIC_TEST="$2"
+  shift 2
+  ;;
   -h | --help)
     cat <<EOF
 judge.sh Test Suite Runner
@@ -107,14 +107,14 @@ Snapshots:
     Use -u flag to update the master snapshots.
 
 EOF
-    exit 0
-    ;;
+  exit 0
+  ;;
   *)
-    echo "Unknown option: $1"
-    echo "Use -h or --help for usage information"
-    exit 1
-    ;;
-  esac
+  echo "Unknown option: $1"
+  echo "Use -h or --help for usage information"
+  exit 1
+  ;;
+esac
 done
 
 # ============================================================================
@@ -159,7 +159,7 @@ compare_snapshot() {
     log_info "✓ Output matches master snapshot"
     rm "$temp_file"
     return 0
-  else
+    else
     log_warning "⚠ Output differs from master snapshot"
     log_info "Run with -u flag to update snapshots"
     rm "$temp_file"
@@ -189,7 +189,7 @@ log_section "PRE-FLIGHT CHECKS"
 for test_file in "${TEST_FILES[@]}"; do
   if [ -f "${TESTS_DIR}/${test_file}" ]; then
     log_pass "Found ${test_file}"
-  else
+    else
     log_warning "Missing ${test_file}"
   fi
 done
@@ -202,13 +202,13 @@ log_section "TEST CONFIGURATION"
 
 if [[ $UPDATE_SNAPSHOTS -eq 1 ]]; then
   log_info "Snapshot mode: UPDATE (will create/update snapshots)"
-else
+  else
   log_info "Snapshot mode: COMPARE (will compare against existing snapshots)"
 fi
 
 if [[ -n "$SPECIFIC_TEST" ]]; then
   log_info "Running specific test: $SPECIFIC_TEST"
-else
+  else
   log_info "Running all tests"
 fi
 
@@ -261,7 +261,7 @@ run_test_suite() {
 
   if [[ $exit_code -eq 0 ]]; then
     log_success "${test_name} completed successfully"
-  else
+    else
     log_failure "${test_name} failed"
     FAILED_SUITES+=("$test_name")
   fi
@@ -274,7 +274,7 @@ run_test_suite() {
 # Run specific test or all tests
 if [[ -n "$SPECIFIC_TEST" ]]; then
   run_test_suite "test-${SPECIFIC_TEST}.sh" "${SPECIFIC_TEST}" "${SPECIFIC_TEST}"
-else
+  else
   for suite in "${TEST_FILES[@]}"; do
     run_test_suite "${suite}" "${suite}" "${suite}"
   done
@@ -297,7 +297,7 @@ if [ ${#FAILED_SUITES[@]} -eq 0 ]; then
   suites_run=$([ -n "$SPECIFIC_TEST" ] && echo 1 || echo ${#TEST_FILES[@]})
   echo "  Test suites run: $suites_run"
   echo ""
-else
+  else
   echo -e "${RED}✗ Some test suites failed:${NC}"
   echo ""
   for suite in "${FAILED_SUITES[@]}"; do
@@ -318,7 +318,7 @@ echo "  Timestamp: ${SNAPSHOT_TIMESTAMP}"
 
 if [[ $UPDATE_SNAPSHOTS -eq 1 ]]; then
   echo -e "  Status: ${GREEN}Master snapshots updated ✓${NC}"
-else
+  else
   echo "  Status: Compared against master snapshots"
 fi
 echo ""
@@ -336,6 +336,6 @@ echo ""
 # Exit with appropriate code
 if [ ${#FAILED_SUITES[@]} -eq 0 ]; then
   exit 0
-else
+  else
   exit 1
 fi
