@@ -18,4 +18,4 @@ scripts:
   test/setup: "bash judge.sh setup"
   test/verbose: "bash judge.sh run -v"
   test/ci: "TERM=linux bash judge.sh run"
-  docs: arty exec leaf docs --logo ./icon.svg --base-path judge.sh -o ./docs
+  docs: arty exec leaf docs --logo ./icon.svg --github-url https://github.com/butter-sh/judge.sh -o ./docs
