@@ -18,4 +18,4 @@ scripts:
   test/setup: "bash judge.sh setup"
   test/verbose: "bash judge.sh run -v"
   test/ci: "TERM=linux bash judge.sh run"
-  docs: arty exec leaf docs -o ./docs --project-dir . --logo ./icon.svg --base-path judge.sh
+  docs: arty exec leaf docs --logo ./icon.svg --base-path judge.sh -o ./docs
