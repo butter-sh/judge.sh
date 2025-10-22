@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Integration tests for judge.sh - tests complete workflows
 
-
 # Test: complete test lifecycle
 test_complete_lifecycle() {
 

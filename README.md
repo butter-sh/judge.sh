@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛡️ judge.sh
+# judge.sh
 
 **Bash Testing Framework with Snapshot Support**
 
@@ -20,12 +20,12 @@
 
 ## Features
 
-- 🧪 **Comprehensive Test Framework** - Full assertion library
-- 📸 **Snapshot Testing** - Capture and validate test outputs
-- 🎯 **Command Delegation** - Clean CLI with specialized sub-commands
-- 📊 **Test Reporting** - Detailed test summaries and statistics
-- 🎨 **Colorful Output** - Beautiful, readable test results
-- 🔧 **Easy Setup** - Quick initialization and configuration
+- **Comprehensive Test Framework** - Full assertion library
+- **Snapshot Testing** - Capture and validate test outputs
+- **Command Delegation** - Clean CLI with specialized sub-commands
+- **Test Reporting** - Detailed test summaries and statistics
+- **Colorful Output** - Beautiful, readable test results
+- **Easy Setup** - Quick initialization and configuration
 
 ## Installation
 

@@ -9,7 +9,7 @@ SNAPSHOT_DIR="${SNAPSHOT_DIR:-${SCRIPT_DIR}/snapshots}"
 
 # Colors for output - only use colors if output is to a terminal or if FORCE_COLOR is set
 export FORCE_COLOR=${FORCE_COLOR:-"1"}
-if [ "$FORCE_COLOR" = "0" ]; then
+if [[ "$FORCE_COLOR" = "0" ]]; then
   export RED=''
   export GREEN=''
   export YELLOW=''
@@ -66,7 +66,7 @@ list_snapshots() {
   ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | head -10 | awk '{print "  " $9, "(" $5 ")"}'
 
   local count=$(ls "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | wc -l)
-  if [ $count -gt 10 ]; then
+  if [[ $count -gt 10 ]]; then
     echo "  ... and $((count - 10)) more"
   fi
 }
@@ -74,7 +74,7 @@ list_snapshots() {
 show_snapshot() {
   local test_id="$1"
 
-  if [ -z "$test_id" ]; then
+  if [[ -z "$test_id" ]]; then
     echo "Error: Test ID required"
     echo "Usage: $0 show <test-id>"
     exit 1
@@ -83,7 +83,7 @@ show_snapshot() {
   # Find latest snapshot for this test
   local latest=$(ls -t "${SNAPSHOT_DIR}/${test_id}"_*.log 2>/dev/null | head -1)
 
-  if [ -z "$latest" ]; then
+  if [[ -z "$latest" ]]; then
     echo "No snapshots found for: $test_id"
     exit 1
   fi
@@ -97,7 +97,7 @@ show_snapshot() {
 diff_snapshot() {
   local test_id="$1"
 
-  if [ -z "$test_id" ]; then
+  if [[ -z "$test_id" ]]; then
     echo "Error: Test ID required"
     echo "Usage: $0 diff <test-id>"
     exit 1
@@ -106,12 +106,12 @@ diff_snapshot() {
   local master="${SNAPSHOT_DIR}/${test_id}_master.log"
   local latest=$(ls -t "${SNAPSHOT_DIR}/${test_id}"_[0-9]*_[0-9]*.log 2>/dev/null | head -1)
 
-  if [ ! -f "$master" ]; then
+  if [[ ! -f "$master" ]]; then
     echo -e "${RED}Master snapshot not found: $master${NC}"
     exit 1
   fi
 
-  if [ -z "$latest" ]; then
+  if [[ -z "$latest" ]]; then
     echo -e "${YELLOW}No recent snapshots found for: $test_id${NC}"
     exit 1
   fi
@@ -142,7 +142,7 @@ clean_snapshots() {
 
   local count=$(find "${SNAPSHOT_DIR}" -name "*_[0-9]*_[0-9]*.log" -mtime +$days 2>/dev/null | wc -l)
 
-  if [ $count -eq 0 ]; then
+  if [[ $count -eq 0 ]]; then
     echo "No old snapshots to remove"
     return
   fi
@@ -176,7 +176,7 @@ show_stats() {
   echo "Total size:       $total_size"
   echo ""
 
-  if [ $run_count -gt 0 ]; then
+  if [[ $run_count -gt 0 ]]; then
     echo "Oldest snapshot:"
     ls -lt "${SNAPSHOT_DIR}"/*_[0-9]*_[0-9]*.log 2>/dev/null | tail -1 | awk '{print "  " $9, "(" $6, $7, $8 ")"}'
     echo ""

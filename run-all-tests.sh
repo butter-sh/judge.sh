@@ -131,7 +131,7 @@ save_snapshot() {
   echo "$output" >"$snapshot_file"
 
   # Update master snapshot if requested
-  if [ $UPDATE_SNAPSHOTS -eq 1 ]; then
+  if [[ $UPDATE_SNAPSHOTS -eq 1 ]]; then
     echo "$output" >"$master_snapshot"
     log_info "Updated master snapshot: ${master_snapshot}"
   fi
@@ -144,7 +144,7 @@ compare_snapshot() {
   local output="$2"
   local master_snapshot="${SNAPSHOT_DIR}/${test_name}_master.log"
 
-  if [ ! -f "$master_snapshot" ]; then
+  if [[ ! -f "$master_snapshot" ]]; then
     log_warning "No master snapshot found for ${test_name}"
     log_info "Creating initial master snapshot..."
     echo "$output" >"$master_snapshot"
@@ -200,13 +200,13 @@ done
 
 log_section "TEST CONFIGURATION"
 
-if [ $UPDATE_SNAPSHOTS -eq 1 ]; then
+if [[ $UPDATE_SNAPSHOTS -eq 1 ]]; then
   log_info "Snapshot mode: UPDATE (will create/update snapshots)"
 else
   log_info "Snapshot mode: COMPARE (will compare against existing snapshots)"
 fi
 
-if [ -n "$SPECIFIC_TEST" ]; then
+if [[ -n "$SPECIFIC_TEST" ]]; then
   log_info "Running specific test: $SPECIFIC_TEST"
 else
   log_info "Running all tests"
@@ -252,14 +252,14 @@ run_test_suite() {
   save_snapshot "$test_id" "$captured_output"
 
   # Compare with master if not updating
-  if [ $UPDATE_SNAPSHOTS -eq 0 ]; then
+  if [[ $UPDATE_SNAPSHOTS -eq 0 ]]; then
     compare_snapshot "$test_id" "$captured_output"
   fi
 
   # Cleanup temp file
   rm "$output_file"
 
-  if [ $exit_code -eq 0 ]; then
+  if [[ $exit_code -eq 0 ]]; then
     log_success "${test_name} completed successfully"
   else
     log_failure "${test_name} failed"
@@ -272,7 +272,7 @@ run_test_suite() {
 }
 
 # Run specific test or all tests
-if [ -n "$SPECIFIC_TEST" ]; then
+if [[ -n "$SPECIFIC_TEST" ]]; then
   run_test_suite "test-${SPECIFIC_TEST}.sh" "${SPECIFIC_TEST}" "${SPECIFIC_TEST}"
 else
   for suite in "${TEST_FILES[@]}"; do
@@ -316,19 +316,18 @@ echo -e "${BLUE}Snapshots:${NC}"
 echo "  Location: ${SNAPSHOT_DIR}"
 echo "  Timestamp: ${SNAPSHOT_TIMESTAMP}"
 
-if [ $UPDATE_SNAPSHOTS -eq 1 ]; then
+if [[ $UPDATE_SNAPSHOTS -eq 1 ]]; then
   echo -e "  Status: ${GREEN}Master snapshots updated ✓${NC}"
 else
   echo "  Status: Compared against master snapshots"
 fi
 echo ""
 
-
-if [ $UPDATE_SNAPSHOTS -eq 0 ]; then
+if [[ $UPDATE_SNAPSHOTS -eq 0 ]]; then
   log_info "Tip: Run with -u flag to update snapshots if tests fail"
 fi
 
-if [ $VERBOSE -eq 0 ]; then
+if [[ $VERBOSE -eq 0 ]]; then
   log_info "Tip: Run with -v flag for verbose output"
 fi
 

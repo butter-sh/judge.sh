@@ -116,7 +116,7 @@ assert_equals() {
 
   TESTS_RUN=$((TESTS_RUN + 1))
 
-  if [ "$expected" = "$actual" ]; then
+  if [[ "$expected" = "$actual" ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 1
@@ -136,7 +136,7 @@ assert_not_equals() {
 
   TESTS_RUN=$((TESTS_RUN + 1))
 
-  if [ "$expected" != "$actual" ]; then
+  if [[ "$expected" != "$actual" ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -229,7 +229,7 @@ assert_file_exists() {
 
   TESTS_RUN=$((TESTS_RUN + 1))
 
-  if [ -f "$file" ]; then
+  if [[ -f "$file" ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -247,7 +247,7 @@ assert_directory_exists() {
 
   TESTS_RUN=$((TESTS_RUN + 1))
 
-  if [ -d "$dir" ]; then
+  if [[ -d "$dir" ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -270,7 +270,7 @@ assert_true() {
   local result=$?
   set -e
 
-  if [ $result -eq 0 ]; then
+  if [[ $result -eq 0 ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -294,7 +294,7 @@ assert_false() {
   local result=$?
   set -e
 
-  if [ $result -ne 0 ]; then
+  if [[ $result -ne 0 ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -342,7 +342,7 @@ compare_snapshot() {
 
   TESTS_RUN=$((TESTS_RUN + 1))
 
-  if [ ! -f "$snapshot_file" ]; then
+  if [[ ! -f "$snapshot_file" ]]; then
     log_warning "$test_name - Snapshot not found, creating..."
     create_snapshot "$snapshot_name" "$actual_content"
     log_pass "$test_name (snapshot created)"
@@ -358,7 +358,7 @@ compare_snapshot() {
   normalized_expected=$(normalize_output "$expected_content")
   normalized_actual=$(normalize_output "$actual_content")
 
-  if [ "$normalized_expected" = "$normalized_actual" ]; then
+  if [[ "$normalized_expected" = "$normalized_actual" ]]; then
     TESTS_PASSED=$((TESTS_PASSED + 1))
     log_pass "$test_name"
     return 0
@@ -445,14 +445,14 @@ print_test_summary() {
   echo -e "  ${GREEN}Passed:       $tests_passed${NC}"
   echo -e "  ${RED}Failed:       $tests_failed${NC}"
 
-  if [ $tests_run -gt 0 ]; then
+  if [[ $tests_run -gt 0 ]]; then
     local pass_rate=$((tests_passed * 100 / tests_run))
     echo "  Pass Rate:    ${pass_rate}%"
   fi
 
   echo ""
 
-  if [ $tests_failed -eq 0 ]; then
+  if [[ $tests_failed -eq 0 ]]; then
     echo -e "${GREEN}✓ All tests passed!${NC}"
     echo ""
     return 0

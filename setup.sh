@@ -5,6 +5,7 @@
 
 set -e
 
+chmod +x judge.sh
 chmod +x run-all-tests.sh
 chmod +x setup-snapshots.sh
 chmod +x snapshot-tool.sh
