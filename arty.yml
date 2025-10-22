@@ -1,4 +1,4 @@
-name: "@butter.sh/judge.sh"
+name: "judge.sh"
 version: "1.0.0"
 description: "A bash testing framework for running and asserting test cases"
 author: "valknar@pivoine.art"
